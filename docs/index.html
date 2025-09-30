@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KanaKata — Learn Hiragana & Katakana</title>
+<meta name="description" content="Learn Hiragana & Katakana with a clean, simple app. Study cards with audio, write on a grid with stroke hints, and track quick progress. Free — banner ads only.">
+<link rel="icon" href="../assets/120x120.png">
+<meta property="og:title" content="KanaKata — Learn Hiragana & Katakana">
+<meta property="og:description" content="Study and write Japanese kana with audio and stroke-order hints.">
+<meta property="og:image" content="https://example.com/og-image.png">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1f6fff">
+<style>
+:root{
+  --bg:#ffffff; --text:#0b0b0b; --muted:#666; --card:#f6f7fb; --line:#e5e7eb; --brand:#1f6fff; --brand-ink:#0a3fb6;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0b0d10; --text:#f3f5f7; --muted:#b2b8c2; --card:#12161c; --line:#1f2430; }
+}
+*{box-sizing:border-box}
+body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:var(--text); background:var(--bg); line-height:1.6}
+.container{max-width:1080px; margin:0 auto; padding:24px}
+.header{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 0}
+.brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text)}
+.brand img{width:40px; height:40px; border-radius:10px; background:#fff; object-fit:contain}
+.brand b{font-size:1.1rem}
+.header nav a{color:var(--muted); text-decoration:none; margin-left:16px}
+.header nav a:hover{color:var(--text)}
+.hero{display:grid; gap:28px; grid-template-columns:1.1fr 1fr; align-items:center; padding:24px 0}
+@media (max-width:900px){ .hero{grid-template-columns:1fr} }
+.h-title{font-size: clamp(28px, 4vw, 44px); line-height:1.15; margin:0}
+.h-sub{color:var(--muted); font-size:1.05rem; margin:12px 0 22px}
+.cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-bottom: 100px}
+.button{background:var(--brand); color:white; padding:12px 18px; border-radius:12px; text-decoration:none; font-weight:600; box-shadow:0 6px 16px rgba(31,111,255,.18)}
+.button:hover{background:var(--brand-ink)}
+.badge{display:inline-flex; align-items:center; gap:10px; border:1px solid var(--line); padding:10px 14px; border-radius:12px; text-decoration:none; color:var(--text); background:var(--card)}
+.badge small{display:block; color:var(--muted); line-height:1}
+.hero-media{border:1px solid var(--line); background:var(--card); border-radius:20px; padding:12px; box-shadow:0 10px 24px rgba(0,0,0,.05)}
+.hero-media img{width:100%; border-radius:14px; display:block}
+.section{padding:24px 0 8px}
+.cards{display:grid; gap:16px; grid-template-columns:repeat(3,1fr)}
+@media (max-width:900px){ .cards{grid-template-columns:1fr} }
+.card{border:1px solid var(--line); background:var(--card); padding:18px; border-radius:16px}
+.card h3{margin:0 0 8px; font-size:1.1rem}
+.card p{margin:0; color:var(--muted)}
+.footer{padding:28px 0 48px; color:var(--muted); border-top:1px solid var(--line); margin-top:24px}
+.footer a{color:var(--muted)}
+.lang{font-size:.9rem; color:var(--muted); margin-top:6px}
+.langs{display:flex;gap:12px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.lang-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);background:var(--card);border-radius:10px}
+.lang-flag{width:18px;height:18px;border-radius:4px;object-fit:cover;box-shadow:0 0 0 1px rgba(0,0,0,.05)}
+.lang-name{font-size:.95rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="container header">
+  <a class="brand" href="#">
+    <img src="../assets/1024x1024.png" alt="HanaKata logo">
+    <b>KanaKata</b>
+  </a>
+  <nav>
+    <a href="./privacy-policy.html">Privacy</a>
+    <a href="./support.html">Support</a>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div>
+      <h1 class="h-title">Learn <span style="color:var(--brand)">Hiragana</span> &amp; <span style="color:var(--brand)">Katakana</span> — fast.</h1>
+      <p class="h-sub">Study cards with audio and tips. Practice writing on a grid with optional stroke‑order hints. Clean, focused, and free — only banner ads.</p>
+      <div class="cta-row">
+        <a class="button" href="" aria-label="Download on the App Store">Download for iPhone</a>
+        <a class="badge" href="">
+          <div>
+            <strong>What’s new</strong>
+            <small>v1.0 — Initial release</small>
+          </div>
+        </a>
+      </div>
+	  <p class="h-sub">Supported languages.</p>
+      <div class="langs" aria-label="Supported languages">
+		  <div class="lang-item">
+			<!-- Enlace de ejemplo: cambia por tu ruta/host real -->
+			<img class="lang-flag" src="../assets/flags/gb.svg" alt="English"
+				 onerror="this.replaceWith(document.createTextNode('🇬🇧'));">
+			<span class="lang-name">English</span>
+		  </div>
+		  <div class="lang-item">
+			<!-- Enlace de ejemplo: cambia por tu ruta/host real -->
+			<img class="lang-flag" src="../assets/flags/es.svg" alt="Español"
+				 onerror="this.replaceWith(document.createTextNode('🇪🇸'));">
+			<span class="lang-name">Español</span>
+		  </div>
+	  </div>
+    </div>
+    <div class="hero-media">
+      <img src="../assets/home-screen.png" alt="KanaKata app screenshot">
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cards">
+      <div class="card">
+        <h3>Study mode</h3>
+        <p>Big character, romaji, clear tips, and native‑like audio.</p>
+      </div>
+      <div class="card">
+        <h3>Writing mode</h3>
+        <p>Grid canvas with instant ink and optional hint overlay.</p>
+      </div>
+      <div class="card">
+        <h3>Simple & private</h3>
+        <p>No account required. Privacy controls with ATT & UMP.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="container footer">
+  <div>© 2025 HanaKata</div>
+  <div><a href="./privacy-policy.html">Privacy Policy</a> · <a href="./privacy-choices.html">User Privacy Choices</a> · <a href="./support.html">Support</a></div>
+</footer>
+</body>
+</html>
