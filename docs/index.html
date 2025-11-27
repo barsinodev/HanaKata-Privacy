@@ -36,8 +36,92 @@ body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Ari
 .button:hover{background:var(--brand-ink)}
 .badge{display:inline-flex; align-items:center; gap:10px; border:1px solid var(--line); padding:10px 14px; border-radius:12px; text-decoration:none; color:var(--text); background:var(--card)}
 .badge small{display:block; color:var(--muted); line-height:1}
-.hero-media{border:1px solid var(--line); background:var(--card); border-radius:20px; padding:12px; box-shadow:0 10px 24px rgba(0,0,0,.05)}
-.hero-media img{width:100%; border-radius:14px; display:block}
+
+/* CARD DEL HERO */
+.hero-media{
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:20px;
+  padding:16px 24px;
+  box-shadow:0 10px 24px rgba(0,0,0,.05);
+  position:relative;
+  overflow:visible; /* para que las flechas salgan fuera */
+}
+
+/* Contenedor que recorta la imagen y mantiene proporción */
+.hero-media-inner{
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  aspect-ratio: 9 / 16; /* vertical tipo captura de app */
+  background:#000;
+}
+
+/* Carrusel */
+.hero-slider{
+  position:relative;
+  width:100%;
+  height:100%;
+}
+.hero-slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transform:translateX(8px);
+  transition:opacity 0.35s ease, transform 0.35s ease;
+  pointer-events:none;
+}
+.hero-slide.active{
+  opacity:1;
+  transform:translateX(0);
+  pointer-events:auto;
+}
+.hero-slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* Flechas tipo icono, fuera de la imagen */
+.hero-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:40px;
+  height:40px;
+  border-radius:999px;
+  background:var(--bg);
+  border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  padding:0;
+  box-shadow:0 6px 20px rgba(0,0,0,.12);
+}
+.hero-nav:hover{
+  transform:translateY(-50%) scale(1.04);
+}
+.hero-nav.hero-nav-prev{
+  left:-24px;  /* fuera del borde de la card */
+}
+.hero-nav.hero-nav-next{
+  right:-24px;
+}
+
+/* Chevron (como el icono que has pasado) */
+.hero-nav-icon{
+  width:18px;
+  height:18px;
+  border-left:2.5px solid var(--text);
+  border-bottom:2.5px solid var(--text);
+  border-radius:4px;
+  transform:rotate(45deg); /* flecha hacia la izquierda */
+}
+.hero-nav-icon-next{
+  transform:rotate(-135deg); /* flecha hacia la derecha */
+}
+
 .section{padding:24px 0 8px}
 .cards{display:grid; gap:16px; grid-template-columns:repeat(3,1fr)}
 @media (max-width:900px){ .cards{grid-template-columns:1fr} }
@@ -69,9 +153,9 @@ body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Ari
   <section class="hero">
     <div>
       <h1 class="h-title">Learn <span style="color:var(--brand)">Hiragana</span> &amp; <span style="color:var(--brand)">Katakana</span> — fast.</h1>
-      <p class="h-sub">Study cards with audio and tips. Practice writing on a grid with optional stroke‑order hints. Clean, focused, and free — only banner ads.</p>
+      <p class="h-sub">Study cards with audio and tips. Practice writing on a grid with optional stroke-order hints. Clean, focused, and free — only banner ads.</p>
       <div class="cta-row">
-        <a class="button" href="" aria-label="Download on the App Store">Download for iPhone</a>
+        <a class="button" href="https://apps.apple.com/us/app/hanakata/id6753166674?uo=4" aria-label="Download on the App Store">Download for iPhone</a>
         <a class="badge" href="">
           <div>
             <strong>What’s new</strong>
@@ -79,24 +163,53 @@ body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Ari
           </div>
         </a>
       </div>
-	  <p class="h-sub">Supported languages.</p>
+      <p class="h-sub">Supported languages.</p>
       <div class="langs" aria-label="Supported languages">
-		  <div class="lang-item">
-			<!-- Enlace de ejemplo: cambia por tu ruta/host real -->
-			<img class="lang-flag" src="./assets/flags/gb.svg" alt="English"
-				 onerror="this.replaceWith(document.createTextNode('🇬🇧'));">
-			<span class="lang-name">English</span>
-		  </div>
-		  <div class="lang-item">
-			<!-- Enlace de ejemplo: cambia por tu ruta/host real -->
-			<img class="lang-flag" src="./assets/flags/es.svg" alt="Español"
-				 onerror="this.replaceWith(document.createTextNode('🇪🇸'));">
-			<span class="lang-name">Español</span>
-		  </div>
-	  </div>
+        <div class="lang-item">
+          <img class="lang-flag" src="./assets/flags/gb.svg" alt="English"
+               onerror="this.replaceWith(document.createTextNode('🇬🇧'));">
+          <span class="lang-name">English</span>
+        </div>
+        <div class="lang-item">
+          <img class="lang-flag" src="./assets/flags/es.svg" alt="Español"
+               onerror="this.replaceWith(document.createTextNode('🇪🇸'));">
+          <span class="lang-name">Español</span>
+        </div>
+      </div>
     </div>
+
+    <!-- HERO MEDIA COMO CARRUSEL + ANIMACIÓN -->
     <div class="hero-media">
-      <img src="./assets/home-screen.png" alt="KanaKata app screenshot">
+      <div class="hero-media-inner">
+        <div class="hero-slider">
+          <div class="hero-slide active">
+            <img src="./assets/home-screen.png" alt="KanaKata Home screen">
+          </div>
+          <div class="hero-slide">
+            <img src="./assets/practice-screen.png" alt="KanaKata Study cards screen">
+          </div>
+          <div class="hero-slide">
+            <img src="./assets/study-screen.png" alt="KanaKata Study cards screen">
+          </div>
+          <div class="hero-slide">
+            <img src="./assets/writting-screen.png" alt="KanaKata Writing practice screen">
+          </div>
+          <div class="hero-slide">
+            <img src="./assets/settings-screen.png" alt="KanaKata Settings screen">
+          </div>
+          <div class="hero-slide">
+            <img src="./assets/settings-achievements.png" alt="KanaKata Achievements screen">
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones de navegación izquierda/derecha, fuera de la imagen -->
+      <button class="hero-nav hero-nav-prev" type="button" aria-label="Previous screenshot">
+        <span class="hero-nav-icon"></span>
+      </button>
+      <button class="hero-nav hero-nav-next" type="button" aria-label="Next screenshot">
+        <span class="hero-nav-icon hero-nav-icon-next"></span>
+      </button>
     </div>
   </section>
 
@@ -104,7 +217,7 @@ body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Ari
     <div class="cards">
       <div class="card">
         <h3>Study mode</h3>
-        <p>Big character, romaji, clear tips, and native‑like audio.</p>
+        <p>Big character, romaji, clear tips, and native-like audio.</p>
       </div>
       <div class="card">
         <h3>Writing mode</h3>
@@ -122,5 +235,50 @@ body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Ari
   <div>© 2025 HanaKata</div>
   <div><a href="./privacy-policy.html">Privacy Policy</a> · <a href="./privacy-choices.html">User Privacy Choices</a> · <a href="./support.html">Support</a></div>
 </footer>
+
+<!-- Script para manejar el carrusel con animación -->
+<script>
+(function () {
+  var slides = document.querySelectorAll('.hero-slide');
+  var prevBtn = document.querySelector('.hero-nav-prev');
+  var nextBtn = document.querySelector('.hero-nav-next');
+
+  if (!slides.length || !prevBtn || !nextBtn) return;
+
+  var index = 0;
+  var isAnimating = false;
+
+  function showSlide(newIndex) {
+    if (isAnimating || newIndex === index) return;
+    isAnimating = true;
+
+    var current = slides[index];
+    var next = slides[newIndex];
+
+    current.classList.remove('active');
+    next.classList.add('active');
+
+    index = newIndex;
+
+    // Tiempo igual al de transition CSS (0.35s)
+    setTimeout(function () {
+      isAnimating = false;
+    }, 360);
+  }
+
+  function nextSlide() {
+    var newIndex = (index + 1) % slides.length;
+    showSlide(newIndex);
+  }
+
+  function prevSlide() {
+    var newIndex = (index - 1 + slides.length) % slides.length;
+    showSlide(newIndex);
+  }
+
+  nextBtn.addEventListener('click', nextSlide);
+  prevBtn.addEventListener('click', prevSlide);
+})();
+</script>
 </body>
 </html>
